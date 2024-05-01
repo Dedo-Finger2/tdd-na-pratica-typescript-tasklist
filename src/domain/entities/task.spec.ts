@@ -29,6 +29,6 @@ describe("Task", () => {
       priority: TaskPriority.MEDIA,
     });
 
-    expect(newTask.status.toLowerCase()).toBe("pendente");
+    expect(newTask.status).toBe("pendente");
   });
 });
