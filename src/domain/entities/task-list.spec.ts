@@ -4,7 +4,6 @@ import { Task, TaskPriority } from "./task";
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { set, reset } from "mockdate";
 
-
 describe("TaskList", () => {
   beforeAll(() => {
     set(new Date('2/20/2000'));  
