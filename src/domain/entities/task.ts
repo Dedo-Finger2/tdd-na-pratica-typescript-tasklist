@@ -1,8 +1,19 @@
+export enum TaskStatus {
+  PENDENTE = "pendente",
+  CONCLUIDA = "concluida",
+};
+
+export enum TaskPriority {
+  ALTA = "alta",
+  MEDIA = "media",
+  BAIXA = "baixa",
+};
+
 export type TaskParams = { 
   name: string, 
   description?: string, 
   dueDate?: Date, 
-  priority: string
+  priority: TaskPriority
 };
 
 export class Task {
@@ -10,13 +21,13 @@ export class Task {
   public description?: string;
   public dueDate?: Date;
   public priority: string;
-  public status: string;
+  public status: TaskStatus;
 
   constructor({ name, description, priority, dueDate }: TaskParams) {
     this.name = name;
     this.description = description;
     this.priority = priority;
     this.dueDate = dueDate;
-    this.status = "Pendente";
+    this.status = TaskStatus.PENDENTE;
   }
 }
