@@ -1,4 +1,4 @@
-import { Task } from "vitest";
+import { Task } from "./task";
 
 export type TaskListParams = {
   createdAt: Date;
