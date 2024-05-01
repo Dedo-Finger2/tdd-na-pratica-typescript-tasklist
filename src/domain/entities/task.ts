@@ -17,7 +17,7 @@ export type TaskParams = {
 };
 
 export class Task {
-  private static GLOBAL_ID = 0;
+  private static GLOBAL_ID = 1;
 
   public taskId: number;
   public name: string;
@@ -27,7 +27,7 @@ export class Task {
   public status: TaskStatus;
 
   constructor({ name, description, priority, dueDate }: TaskParams) {
-    this.taskId = Task.GLOBAL_ID++;
+    this.taskId = Task.GLOBAL_ID;
     this.name = name;
     this.description = description;
     this.priority = priority;
