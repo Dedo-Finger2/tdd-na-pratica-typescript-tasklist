@@ -1,12 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { Task, TaskPriority } from "../domain/entities/task";
-import { TaskRepositorySpy } from "../repositories/spy/task";
-import { CreateTask } from "./create-task";
+import { buildCreateTask } from "../factories/task";
 
 describe("CreateTask", () => {
   it("should create a new task", async () => {
-    const createTaskRepository = new TaskRepositorySpy();
-    const sut = new CreateTask(createTaskRepository);
+    const sut = buildCreateTask();
 
     const task = await sut.execute({
       name: "Task nova",
