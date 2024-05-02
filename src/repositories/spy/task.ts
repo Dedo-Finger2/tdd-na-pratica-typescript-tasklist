@@ -20,7 +20,8 @@ export class TaskRepositorySpy implements TaskRepository {
       case "data-vencimento": task = taskList.tasks.find((task) => task.dueDate === value); break;
       case "prioridade": task = taskList.tasks.find((task) => task.priority === value); break;
       case "status": task = taskList.tasks.find((task) => task.status === value); break;
-      default: undefined; break;
+      case "id": task = taskList.tasks.find((task) => task.taskId === value); break;
+      default: task = undefined; break;
     }
     return task;
   }

@@ -3,7 +3,7 @@ import { Task, TaskParams, TaskPriority, TaskStatus } from "./../domain/entities
 
 export type FindTaskParams = {
   key: string,
-  value: string | Date | TaskPriority | TaskStatus,
+  value: string | number | Date | TaskPriority | TaskStatus,
   taskList: TaskList,
 };
 
