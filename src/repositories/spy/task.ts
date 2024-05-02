@@ -1,5 +1,5 @@
 import { Task, TaskParams } from "../../domain/entities/task";
-import { FindAllTasksParams, FindTaskParams, TaskRepository } from "../task-repository";
+import { FindAllTasksParams, FindTaskParams, TaskRepository, UpdateTaskParams } from "../task-repository";
 
 export class TaskRepositorySpy implements TaskRepository {
   async create({ name, priority, description, dueDate }: TaskParams): Promise<Task> {
@@ -46,5 +46,23 @@ export class TaskRepositorySpy implements TaskRepository {
     }
     if (orientation === "DESC") tasks = tasks.reverse();
     return tasks;
+  }
+
+  async update({ taskId, taskList, name, description, dueDate, priority }: UpdateTaskParams): Promise<Task | undefined> {
+    const taskFound = taskList.tasks.find((task) => task.taskId === taskId);
+    if (taskFound) {
+      Object.assign(taskFound, {
+        name,
+        description,
+        dueDate,
+        priority,
+      });
+      taskList.tasks = [
+        ...taskList.tasks,
+        taskFound,
+      ];
+      return taskFound;
+    }
+    return undefined;
   }
 }
