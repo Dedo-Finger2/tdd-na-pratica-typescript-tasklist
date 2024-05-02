@@ -1,6 +1,7 @@
 import { TaskList } from "../domain/entities/task-list";
 import { TaskRepositorySpy } from "../repositories/spy/task";
 import { CreateTask } from "../use-cases/create-task";
+import { DeleteTask } from "../use-cases/delete-task";
 import { GetTaskByName } from "../use-cases/get-task-by-name";
 import { GetTaskByPriority } from "../use-cases/get-task-by-priority";
 import { GetTaskByStatus } from "../use-cases/get-task-by-status";
@@ -94,5 +95,11 @@ export const buildUpdateTask = (): UpdateTask => {
 export const buildToggleTaskStatus = (): ToggleTaskStatus => {
   const taskRepository = new TaskRepositorySpy();
   const sut = new ToggleTaskStatus(taskRepository);
+  return sut;
+};
+
+export const buildDeleteTask = (): DeleteTask => {
+  const taskRepository = new TaskRepositorySpy();
+  const sut = new DeleteTask(taskRepository);
   return sut;
 }

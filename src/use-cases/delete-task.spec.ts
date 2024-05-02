@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { TaskPriority, TaskStatus } from "../domain/entities/task";
 import { TaskList } from "../domain/entities/task-list";
-import { buildCreateTask } from "../factories/task";
+import { buildCreateTask, buildDeleteTask } from "../factories/task";
 import { TaskRepositorySpy } from "../repositories/spy/task";
 import { DeleteTask } from "./delete-task";
 
@@ -24,8 +24,7 @@ describe("ToggleTaskStatus", () => {
   });
 
   it("should delete a task from a tasklist", async() => {
-    const taskRepository = new TaskRepositorySpy();
-    const sut = new DeleteTask(taskRepository);
+    const sut = buildDeleteTask();
 
     await sut.execute({
       taskList,
@@ -37,8 +36,7 @@ describe("ToggleTaskStatus", () => {
   });
 
   it("should not delete a task from a tasklist that is completed", async() => {
-    const taskRepository = new TaskRepositorySpy();
-    const sut = new DeleteTask(taskRepository);
+    const sut = buildDeleteTask();
 
     const response = sut.execute({
       taskList,
