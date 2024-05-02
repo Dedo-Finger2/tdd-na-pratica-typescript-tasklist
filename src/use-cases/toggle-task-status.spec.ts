@@ -5,7 +5,7 @@ import { buildCreateTask } from "../factories/task";
 import { TaskRepositorySpy } from "../repositories/spy/task";
 import { ToggleTaskStatus } from "./toggle-task-status";
 
-describe("", () => {
+describe("ToggleTaskStatus", () => {
   let taskList: TaskList;
   beforeAll(async () => {
     taskList = new TaskList({ createdAt: new Date() });
