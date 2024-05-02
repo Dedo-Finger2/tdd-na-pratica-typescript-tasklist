@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { TaskPriority } from "../domain/entities/task";
 import { TaskList } from "../domain/entities/task-list";
-import { buildCreateTask } from "../factories/task";
+import { buildCreateTask, buildUpdateTask } from "../factories/task";
 import { TaskRepositorySpy } from "../repositories/spy/task";
 import { UpdateTask } from "./update-task";
 
@@ -55,8 +55,7 @@ describe("UpdateTask", () => {
   });
 
   it("should return undefined if task does not exists", async()=> {
-    const taskRepository = new TaskRepositorySpy();
-    const sut = new UpdateTask(taskRepository);
+    const sut = buildUpdateTask();
 
     const updatedTask = await sut.execute({
       taskList,
