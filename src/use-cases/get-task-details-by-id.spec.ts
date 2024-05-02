@@ -1,9 +1,7 @@
-import { describe, it, expect, beforeEach, beforeAll } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import { buildCreateTask, buildGetTaskDetailsById } from "../factories/task";
 import { TaskList } from "../domain/entities/task-list";
 import { TaskPriority } from "../domain/entities/task";
-import { TaskRepositorySpy } from "../repositories/spy/task";
-import { GetTaskDetailsById } from "./get-task-details-by-id";
 
 describe("GetTaskDetailById", () => {
   let taskList: TaskList;
