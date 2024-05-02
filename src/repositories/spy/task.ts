@@ -1,5 +1,5 @@
 import { Task, TaskParams } from "../../domain/entities/task";
-import { FindTaskParams, TaskRepository } from "../task-repository";
+import { FindAllTasksParams, FindTaskParams, TaskRepository } from "../task-repository";
 
 export class TaskRepositorySpy implements TaskRepository {
   async create({ name, priority, description, dueDate }: TaskParams): Promise<Task> {
@@ -23,5 +23,27 @@ export class TaskRepositorySpy implements TaskRepository {
       default: undefined; break;
     }
     return task;
+  }
+
+  async findAll({ orderBy, orientation, taskList }: FindAllTasksParams): Promise<Task[]> {
+    let tasks = taskList.tasks;
+    switch (orderBy) {
+      case "name": tasks = taskList.tasks.sort((a, b) => a.name.localeCompare(b.name)); break;
+      // case "description": tasks =  break;
+      case "dueDate": tasks = tasks = taskList.tasks.sort((a, b) => { 
+        if (a.dueDate && b.dueDate) {
+          const dateA = new Date(a.dueDate.toDateString());
+          const dateB = new Date(b.dueDate.toDateString());
+          
+          return dateA.getTime() - dateB.getTime();
+        }
+        return 0;
+      }); break;
+      case "priority": tasks = tasks = taskList.tasks.sort((a, b) => a.priority.localeCompare(b.priority)); break;
+      // case "status": tasks =  break;
+      default: tasks = taskList.tasks; break;
+    }
+    if (orientation === "DESC") tasks = tasks.reverse();
+    return tasks;
   }
 }
