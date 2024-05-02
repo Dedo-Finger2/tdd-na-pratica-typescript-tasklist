@@ -18,9 +18,15 @@ export type UpdateTaskParams = Partial<TaskParams> & {
   taskId: number,
 };
 
+export type ToggleTaskStatusParams = {
+  taskList: TaskList,
+  taskId: number,
+};
+
 export interface TaskRepository {
   create(params: TaskParams): Promise<Task>,
   find(params: FindTaskParams): Promise<Task | undefined>,
   findAll(params: FindAllTasksParams): Promise<Task[]>,
   update(params: UpdateTaskParams): Promise<Task | undefined>,
+  toggleStatus(params: ToggleTaskStatusParams): Promise<Task | undefined>,
 }

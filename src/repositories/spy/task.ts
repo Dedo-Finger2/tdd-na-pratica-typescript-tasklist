@@ -1,5 +1,5 @@
-import { Task, TaskParams } from "../../domain/entities/task";
-import { FindAllTasksParams, FindTaskParams, TaskRepository, UpdateTaskParams } from "../task-repository";
+import { Task, TaskParams, TaskStatus } from "../../domain/entities/task";
+import { FindAllTasksParams, FindTaskParams, TaskRepository, ToggleTaskStatusParams, UpdateTaskParams } from "../task-repository";
 
 export class TaskRepositorySpy implements TaskRepository {
   async create({ name, priority, description, dueDate }: TaskParams): Promise<Task> {
@@ -64,5 +64,16 @@ export class TaskRepositorySpy implements TaskRepository {
       return taskFound;
     }
     return undefined;
+  }
+
+  async toggleStatus({ taskId, taskList }: ToggleTaskStatusParams): Promise<Task | undefined> {
+    const taskFound = taskList.tasks.find((task) => task.taskId === taskId);
+    if (!taskFound) return undefined;
+    taskFound.status = taskFound.status === TaskStatus.PENDENTE ? TaskStatus.CONCLUIDA : TaskStatus.PENDENTE;
+    taskList.tasks = [
+      ...taskList.tasks,
+      taskFound
+    ];
+    return taskFound;
   }
 }
