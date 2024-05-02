@@ -3,6 +3,7 @@ import { TaskRepositorySpy } from "../repositories/spy/task";
 import { CreateTask } from "../use-cases/create-task";
 import { GetTaskByName } from "../use-cases/get-task-by-name";
 import { GetTaskByPriority } from "../use-cases/get-task-by-priority";
+import { GetTaskByStatus } from "../use-cases/get-task-by-status";
 
 export const buildCreateTask = () => {
   const createTaskRepository = new TaskRepositorySpy();
@@ -38,9 +39,27 @@ type GetTaskByPriorityReturn = {
   taskList: TaskList,
 };
 
-export const buiLDGetTaskByPriority = (): GetTaskByPriorityReturn => {
+export const buildGetTaskByPriority = (): GetTaskByPriorityReturn => {
   const taskRepository = new TaskRepositorySpy();
   const sut = new GetTaskByPriority(taskRepository);
+  const taskList = new TaskList({ createdAt: new Date() });
+  const createTask = new CreateTask(taskRepository);
+  return {
+    sut,
+    taskList,
+    createTask,
+  };
+};
+
+type GetTaskByStatusReturn = { 
+  sut: GetTaskByStatus,
+  createTask: CreateTask,
+  taskList: TaskList,
+};
+
+export const buildGetTaskByStatus = (): GetTaskByStatusReturn => {
+  const taskRepository = new TaskRepositorySpy();
+  const sut = new GetTaskByStatus(taskRepository);
   const taskList = new TaskList({ createdAt: new Date() });
   const createTask = new CreateTask(taskRepository);
   return {

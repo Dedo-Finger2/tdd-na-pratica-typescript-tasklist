@@ -1,10 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { Task, TaskPriority } from "../domain/entities/task";
-import { buiLDGetTaskByPriority } from "../factories/task";
+import { buildGetTaskByPriority } from "../factories/task";
 
 describe("GetTaskByPriority", () => {
   it("should return the task with that provided priority", async () => {
-    const { sut, taskList, createTask } = buiLDGetTaskByPriority();
+    const { sut, taskList, createTask } = buildGetTaskByPriority();
     const taskPriorityTarget = TaskPriority.MEDIA;
 
     const newTask = await createTask.execute({
