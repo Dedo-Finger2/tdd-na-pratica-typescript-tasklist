@@ -1,5 +1,5 @@
 import { Task, TaskParams, TaskStatus } from "../../domain/entities/task";
-import { FindAllTasksParams, FindTaskParams, TaskRepository, ToggleTaskStatusParams, UpdateTaskParams } from "../task-repository";
+import { DeleteTaskParams, FindAllTasksParams, FindTaskParams, TaskRepository, ToggleTaskStatusParams, UpdateTaskParams } from "../task-repository";
 
 export class TaskRepositorySpy implements TaskRepository {
   async create({ name, priority, description, dueDate }: TaskParams): Promise<Task> {
@@ -75,5 +75,9 @@ export class TaskRepositorySpy implements TaskRepository {
       taskFound
     ];
     return taskFound;
+  }
+
+  async delete({ taskId, taskList }: DeleteTaskParams): Promise<void> {
+    taskList.tasks = taskList.tasks.filter((task) => task.taskId !== taskId);
   }
 }
