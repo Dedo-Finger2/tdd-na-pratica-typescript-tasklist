@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, beforeAll } from "vitest";
-import { buildCreateTask } from "../factories/task";
+import { buildCreateTask, buildGetTaskDetailsById } from "../factories/task";
 import { TaskList } from "../domain/entities/task-list";
 import { TaskPriority } from "../domain/entities/task";
 import { TaskRepositorySpy } from "../repositories/spy/task";
@@ -23,8 +23,7 @@ describe("GetTaskDetailById", () => {
   });
 
   it("should return task details based on their id", async() => {
-    const taskRepository = new TaskRepositorySpy();
-    const sut = new GetTaskDetailsById(taskRepository);
+    const sut = buildGetTaskDetailsById();
     const anyTaskId = 1;
 
     const task = await sut.execute({ taskId: anyTaskId, taskList });
@@ -35,8 +34,7 @@ describe("GetTaskDetailById", () => {
   });
   
   it("should return undefined if id is not found", async() => {
-    const taskRepository = new TaskRepositorySpy();
-    const sut = new GetTaskDetailsById(taskRepository);
+    const sut = buildGetTaskDetailsById();
     const anyTaskId = 999;
 
     const task = await sut.execute({ taskId: anyTaskId, taskList });
