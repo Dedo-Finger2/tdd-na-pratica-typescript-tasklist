@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { Task, TaskPriority, TaskStatus } from "../domain/entities/task";
+import { TaskPriority } from "../domain/entities/task";
 import { TaskRepositorySpy } from "../repositories/spy/task";
-import { GetTasksOrdered } from "./get-tasks-ordered";
+import { GetTasksSorted } from "./get-tasks-sorted";
 import { TaskList } from "../domain/entities/task-list";
-import { buildCreateTask } from "../factories/task";
+import { buildCreateTask, buildGetTasksSorted } from "../factories/task";
 
 describe("GetTasksOrdered", () => {
   let taskList: TaskList;
@@ -24,7 +24,7 @@ describe("GetTasksOrdered", () => {
 
   it("should return tasks ordered ASC by their name", async() => {
     const taskRepository = new TaskRepositorySpy();
-    const sut = new GetTasksOrdered(taskRepository);
+    const sut = new GetTasksSorted(taskRepository);
 
     const tasks = await sut.execute({
       orderBy: "name",
@@ -39,7 +39,7 @@ describe("GetTasksOrdered", () => {
 
   it("should return tasks ordered DESC by their name", async() => {
     const taskRepository = new TaskRepositorySpy();
-    const sut = new GetTasksOrdered(taskRepository);
+    const sut = new GetTasksSorted(taskRepository);
 
     const tasks = await sut.execute({
       orderBy: "name",
@@ -54,7 +54,7 @@ describe("GetTasksOrdered", () => {
 
   it("should return tasks ordered ASC by their priority", async() => {
     const taskRepository = new TaskRepositorySpy();
-    const sut = new GetTasksOrdered(taskRepository);
+    const sut = new GetTasksSorted(taskRepository);
 
     const tasks = await sut.execute({
       orderBy: "priority",
@@ -69,7 +69,7 @@ describe("GetTasksOrdered", () => {
 
   it("should return tasks ordered ASC by their due date", async() => {
     const taskRepository = new TaskRepositorySpy();
-    const sut = new GetTasksOrdered(taskRepository);
+    const sut = new GetTasksSorted(taskRepository);
 
     const tasks = await sut.execute({
       orderBy: "priority",
@@ -83,8 +83,7 @@ describe("GetTasksOrdered", () => {
   });
 
   it("should return tasks ordered DESC by their due date", async() => {
-    const taskRepository = new TaskRepositorySpy();
-    const sut = new GetTasksOrdered(taskRepository);
+    const sut = buildGetTasksSorted();
 
     const tasks = await sut.execute({
       orderBy: "priority",

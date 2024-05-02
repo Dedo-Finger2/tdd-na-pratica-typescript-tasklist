@@ -4,6 +4,7 @@ import { CreateTask } from "../use-cases/create-task";
 import { GetTaskByName } from "../use-cases/get-task-by-name";
 import { GetTaskByPriority } from "../use-cases/get-task-by-priority";
 import { GetTaskByStatus } from "../use-cases/get-task-by-status";
+import { GetTasksSorted } from "../use-cases/get-tasks-sorted";
 
 export const buildCreateTask = () => {
   const createTaskRepository = new TaskRepositorySpy();
@@ -67,4 +68,10 @@ export const buildGetTaskByStatus = (): GetTaskByStatusReturn => {
     taskList,
     createTask,
   };
+};
+
+export const buildGetTasksSorted= (): GetTasksSorted => {
+  const taskRepository = new TaskRepositorySpy();
+  const sut = new GetTasksSorted(taskRepository);
+  return sut
 };
